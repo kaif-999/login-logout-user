@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/miniproject");
+mongoose.connect(
+  "mongodb+srv://kaif:fsBElucbRX8WcoRj@backend-l1.40ukgmf.mongodb.net/miniprojects?appName=Backend-L1/",
+);
 
 const userSchema = mongoose.Schema({
   username: String,
