@@ -19,9 +19,11 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/profile", isLoggedIn, (req, res) => {
-  console.log(req.user);
-  res.render("login");
+app.get("/profile", isLoggedIn, async (req, res) => {
+  let user = await userModel.findOne({
+    email: req.user.email,
+  });
+  res.render("profile", { user });
 });
 
 app.post("/register", async (req, res) => {
@@ -55,7 +57,7 @@ app.post("/login", async (req, res) => {
     if (result) {
       let token = jwt.sign({ email: email, userid: user._id }, "shhh");
       res.cookie("token", token);
-      res.status(200).send("you can login");
+      res.status(200).redirect("/profile");
     } else res.redirect("/login");
   });
 });
